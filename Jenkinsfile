@@ -1,22 +1,15 @@
 pipeline {
     agent any
-
-   
+ 
+    tools {
+        maven 'MAVEN_HOME'
+    }
+ 
     stages {
-
-        stage('Checkout') {
+        stage('Compile & Test') {
             steps {
-                echo 'Cloning repository...'
-                checkout scm
+                sh 'mvn clean install -DskipTests'
             }
         }
-
-        stage('Compile') {
-            steps {
-                echo 'Compiling project...'
-                sh 'mvn clean compile'
-            }
-        }
-
     }
 }
